@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux'
-import courses from './courseReducers'
+import toDos from './toDoReducer'
 
 const rootReducer = combineReducers({
-  courses,
+  toDos,
 })
 
 export default rootReducer

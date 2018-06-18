@@ -2,11 +2,22 @@ import React from 'react'
 import { connect, bindActionCreator } from 'react-redux'
 
 class App extends React.Component {
+  addTodo = (event) => {
+    console.log(event);
+  }
   render() {
     return (
       <div className="App">
-        <h1>Hello CodeSandbox</h1>
-        <h2>Start editing to see some magic happen!</h2>
+        <h1>List</h1>
+        <ul>
+          {this.props.toDos.map((toDo) =>
+            <li>{toDo.name}</li>
+          )}
+        </ul>
+        <form onSubmit={this.addTodo}>
+          <input type="text" name="title" />
+          <input type="submit" value="Add" />
+        </form>
       </div>
     )
   }
@@ -18,12 +29,12 @@ function mapStateToProps(state) {
   }
 }
 
-function mapDispatchToProps() {
-  return {
-    actions: {
-      addToDo: bindActionCreator(),
-    },
-  }
-}
+// function mapDispatchToProps() {
+//   return {
+//     actions: {
+//       addToDo: bindActionCreator(),
+//     },
+//   }
+// }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+export default connect(mapStateToProps)(App)
