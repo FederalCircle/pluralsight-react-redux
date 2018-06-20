@@ -2,25 +2,30 @@ import React from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
-import * as toDoActions from './redux/actions/toDoActions'
+import * as courseActions from './redux/actions/courseActions'
 
 class App extends React.Component {
-  addTodo = () => {
+  addButtonClick = () => {
     const title = document.getElementById('title').value
-    this.props.actions.addToDo({ title })
+    this.props.actions.createCourse({ title })
   }
 
   render() {
     return (
       <div className="App">
-        <h1>List</h1>
+        <h1>Courses</h1>
         <ul>
-          {this.props.toDos.map((toDo, i) =>
-            <li key={i}>{toDo.title}</li>
-          )}
+          {this.props.courses.length > 0?
+            this.props.courses.map((course, i) =>
+              <li key={i}>{course.title}</li>
+            ):
+            <li>-- empty --</li>
+          }
+          {}
         </ul>
-        <input type="text" id="title"/>
-        <button onClick={this.addTodo}>Add</button>
+        <h3>Create courses</h3>
+        <input type="text" id="title" />
+        <button onClick={this.addButtonClick}>Add</button>
       </div>
     )
   }
@@ -28,13 +33,13 @@ class App extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    toDos: state.toDos
+    courses: state.courses
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(toDoActions, dispatch)
+    actions: bindActionCreators(courseActions, dispatch)
   }
 }
 

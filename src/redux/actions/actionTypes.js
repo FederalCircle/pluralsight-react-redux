@@ -1,1 +1,1 @@
-export const ADD_TODO = 'ADD_TODO'
+export const CREATE_COURSE = 'CREATE_COURSE'
