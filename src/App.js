@@ -1,23 +1,26 @@
 import React from 'react'
-import { connect, bindActionCreator } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+
+import * as toDoActions from './redux/actions/toDoActions'
 
 class App extends React.Component {
-  addTodo = (event) => {
-    console.log(event);
+  addTodo = () => {
+    const title = document.getElementById('title').value
+    this.props.actions.addToDo({ title })
   }
+
   render() {
     return (
       <div className="App">
         <h1>List</h1>
         <ul>
-          {this.props.toDos.map((toDo) =>
-            <li>{toDo.name}</li>
+          {this.props.toDos.map((toDo, i) =>
+            <li key={i}>{toDo.title}</li>
           )}
         </ul>
-        <form onSubmit={this.addTodo}>
-          <input type="text" name="title" />
-          <input type="submit" value="Add" />
-        </form>
+        <input type="text" id="title"/>
+        <button onClick={this.addTodo}>Add</button>
       </div>
     )
   }
@@ -25,16 +28,14 @@ class App extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    toDos: state.toDos,
+    toDos: state.toDos
   }
 }
 
-// function mapDispatchToProps() {
-//   return {
-//     actions: {
-//       addToDo: bindActionCreator(),
-//     },
-//   }
-// }
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(toDoActions, dispatch)
+  }
+}
 
-export default connect(mapStateToProps)(App)
+export default connect(mapStateToProps, mapDispatchToProps)(App)
