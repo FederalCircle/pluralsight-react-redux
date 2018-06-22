@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
 import * as courseActions from '../../redux/actions/courseActions'
+import CourseList from '../../components/Courses/CourseList'
 
 class Courses extends React.Component {
   addButtonClick = () => {
@@ -15,15 +16,7 @@ class Courses extends React.Component {
   render() {
     return (
       <div className="Courses">
-        <h1>Courses</h1>
-        <ul>
-          {this.props.courses.length > 0 ?
-            this.props.courses.map((course, i) =>
-              <li key={i}>{course.title}</li>
-            ) :
-            <li>-- empty --</li>
-          }
-        </ul>
+        <CourseList courses={ this.props.courses } />
         <h3>Create courses</h3>
         <input type="text" id="title" />
         <button onClick={this.addButtonClick}>Add</button>
